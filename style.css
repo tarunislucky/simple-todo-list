@@ -7,7 +7,7 @@
 body {
 	background-color: #00b7ff;
 	font-family: "Open Sans", sans-serif;
-	color: #101010;
+	color: #444444;
 	font-size: 18px;
 }
 i {
@@ -31,7 +31,7 @@ i {
 	font-weight: 700;
 }
 .add-task {
-	margin-bottom: 10px;
+	margin-bottom: 20px;
 }
 .task-input {
 	font-size: 18px;
@@ -42,6 +42,7 @@ i {
 }
 .list {
 	list-style: none;
+	margin-bottom: 20px;
 }
 .list .item {
 	padding-left: 10px;
@@ -65,12 +66,14 @@ i {
 }
 
 .btn {
-	padding: 12px 18px;
+	padding: 10px 13px;
 	border-radius: 5px;
 	cursor: pointer;
 	color: #fff;
-	font-weight: bold;
+	/* font-weight: bold; */
+	font-size: 22px;
 	background-color: blueviolet;
+	border: none;
 }
 
 .btn-red {

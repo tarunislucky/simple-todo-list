@@ -35,7 +35,7 @@ function addTask() {
                     <div class="btn btn-red delete-btn"><i class="fas fa-trash"></i></div>
                    </li>`;
 
-  taskContainer.insertAdjacentHTML("beforeend", taskHtml);
+  taskContainer.insertAdjacentHTML("afterbegin", taskHtml);
   taskInput.value = "";
   taskInput.focus();
   taskCount++;
