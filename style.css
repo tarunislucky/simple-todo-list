@@ -40,6 +40,9 @@ i {
 	border-radius: 5px;
 	border: 1px solid #d3d3d3;
 }
+.task-input:focus {
+	outline: none;
+}
 .list {
 	list-style: none;
 	margin-bottom: 20px;
@@ -55,6 +58,20 @@ i {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
+	animation-duration: 1s;
+	animation-name: slideDown;
+}
+
+@keyframes slideDown {
+	from {
+		transform: translateY(-5px);
+		opacity: 0.5;
+	}
+
+	to {
+		transform: translateY(0px);
+		opacity: 1;
+	}
 }
 
 .clear-section,
