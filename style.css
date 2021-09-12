@@ -1,0 +1,60 @@
+*{
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body{
+  display: flex;
+  min-height: 100vh;
+  align-items: center;
+  justify-content: center;
+  background-color: #00b7ff;
+}
+i{
+  pointer-events: none;
+}
+
+.container{
+  background-color: #fff;
+  padding: 30px 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.heading-title{
+  margin: 10px 0;
+}
+.add-task{
+  margin-bottom: 10px;
+}
+.task-input{
+  padding: 5px 10px;
+  flex-grow: 1;
+}
+.list{
+  list-style: none;
+}
+.list .item{
+  padding: 10px;
+  background-color: lightgrey;
+  margin-bottom: 10px;
+}
+
+.item{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.clear-section, .add-task{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+}
+
+.btn {
+  padding: 5px 10px;
+  cursor: pointer;
+}
