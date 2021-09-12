@@ -1,5 +1,3 @@
-//my second git push
-console.log("ok")
 
 // dom elements
 
@@ -34,7 +32,7 @@ function addTask() {
 
   const taskHtml = `<li class="item">
                     <p>${taskInput.value}</p>
-                    <div class="btn delete-btn"><i class="fas fa-trash"></i></div>
+                    <div class="btn btn-red delete-btn"><i class="fas fa-trash"></i></div>
                    </li>`;
 
   taskContainer.insertAdjacentHTML("beforeend", taskHtml);
