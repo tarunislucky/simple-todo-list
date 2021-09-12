@@ -1,3 +1,6 @@
+//my second git push
+console.log("ok")
+
 // dom elements
 
 const btnAddTask = document.querySelector(".task-input-btn");
