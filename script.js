@@ -13,18 +13,20 @@ const myStorage = window.localStorage;
 
 let taskCount = 0;
 let taskArray = [];
+let item;
 
 //adding event listeners
 btnAddTask.addEventListener("click", addTask);
 taskInput.addEventListener("keypress", addTaskOnEnter);
 
-document.addEventListener("click", deleteTask);
+document.addEventListener("click", generalHandler);
 btnClearAll.addEventListener("click", clearAllTasks);
 
 //Load tasks from local storage
 getAllTasks();
 
-//event-listener functions
+// functions
+//add task
 function addTaskOnEnter(e) {
   if (e.key === "Enter") addTask();
 }
@@ -45,26 +47,75 @@ function addTask() {
   taskCount++;
   taskCountEl.textContent = taskCount;
 }
+//general
+function generalHandler(e) {
+  //if delete button is clicked
+  if (e.target.classList.contains("delete-btn")) {
 
+    item = findClosestItem(e);
+    const id = item.getAttribute("data-id");
+    const taskObj = getTaskObj(id);
+    displayModal(taskObj);
+    return;
+  }
+
+  //if confirm delete No button clicked
+
+  if (e.target.classList.contains("cnf-del-no")) {
+    //close the model and clear it's task content
+    closeModal();
+    return;
+  }
+  //if confirm delete YES button clicked
+
+  if (e.target.classList.contains("cnf-del-yes")) {
+
+    deleteTask(e);
+    closeModal();
+    return;
+  }
+
+
+}
+//delete
 function deleteTask(e) {
 
-  if (e.target.classList.contains("delete-btn")) {
-    const item = e.target.closest(".item");
-    const id = item.getAttribute("data-id");
+  const id = e.target.getAttribute("data-id");
 
-    //loop through task array and find index of the item which has the id
-    for (let i = 0; i < taskArray.length; i++) {
-      if (taskArray[i].id === id) {
-        taskArray.splice(i, 1);
-        break;
-      }
+  //loop through task array 
+  for (let i = 0; i < taskArray.length; i++) {
+    //find index of the item which has the id
+    if (taskArray[i].id === id) {
+      //remove item from array
+      taskArray.splice(i, 1);
+      break;
     }
-    updateLocalStorage();
-    item.remove();
-    taskCount--;
-    taskCountEl.textContent = taskCount;
   }
+  updateLocalStorage();
+  item.remove();
+  taskCount--;
+  taskCountEl.textContent = taskCount;
 }
+
+//delete modal 
+function displayModal(taskObj) {
+  const html = `<p>${taskObj.value}</p>`;
+  document.querySelector(".delete-task-container").insertAdjacentHTML("afterbegin", html);
+
+  document.querySelector(".modal-container").style.display = "block";
+  document.querySelector(".blurr").style.display = "block";
+
+  document.querySelector(".cnf-del").setAttribute("data-id", taskObj.id)
+}
+function closeModal() {
+  document.querySelector(".delete-task-container").innerHTML = "";
+  document.querySelector(".modal-container").style.display = "none";
+  document.querySelector(".blurr").style.display = "none";
+}
+
+
+
+//clearall
 
 function clearAllTasks() {
   taskArray = [];
@@ -74,6 +125,9 @@ function clearAllTasks() {
   taskCountEl.textContent = taskCount;
 }
 
+
+
+//utility functions
 function getAllTasks() {
 
   if (!myStorage.getItem("taskArr")) return;
@@ -86,22 +140,34 @@ function getAllTasks() {
   taskCount = taskArray.length;
   taskCountEl.textContent = taskCount;
 }
-
-//utility functions
-
 function updateLocalStorage() {
   myStorage.setItem("taskArr", JSON.stringify(taskArray));
 }
 function renderTask(taskObj) {
-  const html = `<li class="item" data-id="${taskObj.id}" >
-  <p>${taskObj.value}</p>
-  <div class="btn btn-red delete-btn"><i class="fas fa-trash"></i></div>
- </li>`;
+  const html = generateTaskHtml(taskObj)
   taskContainer.insertAdjacentHTML("afterbegin", html);
 
+}
+function generateTaskHtml(taskObj) {
+  return `<li class="item" data-id="${taskObj.id}" >
+<p>${taskObj.value}</p>
+<div class="btn btn-red delete-btn"><i class="fas fa-trash"></i></div>
+</li>`;
 }
 
 function generateID() {
   return '_' + Math.random().toString(36).substr(2, 9);
 };
+function getTaskObj(id) {
+  for (let i = 0; i < taskArray.length; i++) {
+    if (taskArray[i].id === id) {
+      return taskArray[i];
+    }
+  }
+}
+function getIndexOfTask() {
 
+}
+function findClosestItem(e) {
+  return e.target.closest(".item");
+}
