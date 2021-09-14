@@ -114,6 +114,10 @@ i {
 	body {
 		padding: 100px 20px;
 	}
+
+	.cnf-del-btns {
+		flex-direction: column;
+	}
 }
 
 @media (max-width: 400px) {
@@ -184,4 +188,11 @@ i {
 .cnf-del {
 	display: inline-block;
 	border-radius: 5px;
+	flex: 1;
+}
+
+.cnf-del-btns {
+	display: flex;
+	justify-content: space-between;
+	gap: 10px;
 }
