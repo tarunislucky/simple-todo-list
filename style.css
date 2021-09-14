@@ -15,6 +15,7 @@ body {
 	color: #444444;
 	font-size: 18px;
 	min-height: 100vh;
+	padding: 100px 0;
 }
 i {
 	pointer-events: none;
@@ -23,7 +24,7 @@ i {
 .container {
 	background-color: #fff;
 	padding: 20px;
-	margin: 100px auto;
+	margin: auto;
 	border-radius: 5px;
 	display: flex;
 	flex-direction: column;
@@ -109,9 +110,15 @@ i {
 
 /* media queries */
 
+@media (max-width: 540px) {
+	body {
+		padding: 100px 20px;
+	}
+}
+
 @media (max-width: 400px) {
-	.container {
-		margin: 30px auto;
+	body {
+		padding: 30px 20px;
 	}
 	.heading-title {
 		text-align: center;
@@ -127,11 +134,6 @@ i {
 	.clear-section .btn,
 	.add-task .btn {
 		margin-top: 10px;
-	}
-}
-@media (max-width: 540px) {
-	body {
-		padding: 0 20px;
 	}
 }
 

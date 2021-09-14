@@ -75,6 +75,11 @@ function generalHandler(e) {
     return;
   }
 
+  if (e.target.classList.contains("blurr")) {
+    closeModal();
+    return;
+  }
+
 
 }
 //delete
@@ -97,7 +102,7 @@ function deleteTask(e) {
   taskCountEl.textContent = taskCount;
 }
 
-//delete modal 
+// modal 
 function displayModal(taskObj) {
   const html = `<p>${taskObj.value}</p>`;
   document.querySelector(".delete-task-container").insertAdjacentHTML("afterbegin", html);
