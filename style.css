@@ -50,11 +50,10 @@ i {
 .task-input:focus {
 	outline: none;
 }
-.list {
+.task-list {
 	list-style: none;
 }
-.list .item {
-	/* padding-left: 10px; */
+.task-list .item {
 	background-color: #f3f3f3;
 	margin-bottom: 10px;
 	border-radius: 5px;
@@ -74,7 +73,7 @@ i {
 	margin-bottom: 20px;
 }
 
-.clear-section,
+.footer,
 .add-task {
 	display: flex;
 	justify-content: space-between;
@@ -177,7 +176,7 @@ i {
 	.heading-title {
 		text-align: center;
 	}
-	.clear-section,
+	.footer,
 	.add-task {
 		flex-direction: column;
 		align-items: stretch;
@@ -185,7 +184,7 @@ i {
 		gap: 0;
 	}
 
-	.clear-section .btn,
+	.footer .btn,
 	.add-task .btn {
 		margin-top: 10px;
 	}

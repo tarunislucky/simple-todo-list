@@ -1,19 +1,22 @@
 
 // dom elements
-
+//dom buttons
 const btnAddTask = document.querySelector(".task-input-btn");
 const btnClearAll = document.querySelector(".clear-all-btn");
-
+//other dom elements
 const taskInput = document.querySelector(".task-input");
-const taskContainer = document.querySelector(".list");
+const taskContainer = document.querySelector(".task-list");
 const taskCountEl = document.querySelector(".task-count");
+let currentItem; //dynamic dom item element
+
+//local storage 
 const myStorage = window.localStorage;
 
 //initial values
 
 let taskCount = 0;
 let taskArray = [];
-let item;
+
 
 //adding event listeners
 btnAddTask.addEventListener("click", addTask);
@@ -22,7 +25,7 @@ taskInput.addEventListener("keypress", addTaskOnEnter);
 document.addEventListener("click", generalHandler);
 btnClearAll.addEventListener("click", clearAllTasks);
 
-//Load tasks from local storage
+//Load tasks from local storage (if any) when page loaded
 getAllTasks();
 
 // functions
@@ -52,10 +55,8 @@ function generalHandler(e) {
   //if delete button is clicked
   if (e.target.classList.contains("delete-btn")) {
 
-    item = findClosestItem(e);
-    const id = item.getAttribute("data-id");
-    const taskObj = getTaskObj(id);
-    displayModal(taskObj);
+    currentItem = e.target.closest(".item");
+    displayModal();
     return;
   }
 
@@ -70,7 +71,7 @@ function generalHandler(e) {
 
   if (e.target.classList.contains("cnf-del-yes")) {
 
-    deleteTask(e);
+    deleteTask();
     closeModal();
     return;
   }
@@ -83,9 +84,9 @@ function generalHandler(e) {
 
 }
 //delete
-function deleteTask(e) {
+function deleteTask() {
 
-  const id = e.target.getAttribute("data-id");
+  const id = currentItem.getAttribute("data-id");
 
   //loop through task array 
   for (let i = 0; i < taskArray.length; i++) {
@@ -97,28 +98,24 @@ function deleteTask(e) {
     }
   }
   updateLocalStorage();
-  item.remove();
+  currentItem.remove();
   taskCount--;
   taskCountEl.textContent = taskCount;
 }
 
 // modal 
-function displayModal(taskObj) {
-  const html = `<p>${taskObj.value}</p>`;
-  document.querySelector(".delete-task-container").insertAdjacentHTML("afterbegin", html);
+function displayModal() {
+
+  document.querySelector(".delete-task-container").append(currentItem.querySelector("p").cloneNode([1]));
 
   document.querySelector(".modal-container").style.display = "block";
   document.querySelector(".blurr").style.display = "block";
-
-  document.querySelector(".cnf-del").setAttribute("data-id", taskObj.id)
 }
 function closeModal() {
   document.querySelector(".delete-task-container").innerHTML = "";
   document.querySelector(".modal-container").style.display = "none";
   document.querySelector(".blurr").style.display = "none";
 }
-
-
 
 //clearall
 
@@ -130,14 +127,13 @@ function clearAllTasks() {
   taskCountEl.textContent = taskCount;
 }
 
-
-
 //utility functions
 function getAllTasks() {
 
   if (!myStorage.getItem("taskArr")) return;
-
   taskArray = JSON.parse(myStorage.getItem("taskArr"));
+  if (taskArray.length === 0) return;
+
   taskArray.forEach(task => {
     renderTask(task);
   });
@@ -172,7 +168,4 @@ function getTaskObj(id) {
 }
 function getIndexOfTask() {
 
-}
-function findClosestItem(e) {
-  return e.target.closest(".item");
 }
